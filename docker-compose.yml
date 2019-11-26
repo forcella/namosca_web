@@ -1,0 +1,45 @@
+version: "3"
+services:
+#  Create a service named db.
+  db:
+#   Use the Docker Image postgres. This will pull the newest release.
+    image: "postgres"
+#   Give the container the name my_postgres. You can changes to something else.
+    container_name: "database"
+#   Setup the username, password, and database name. You can changes these values.
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=stand
+#   Maps port 54320 (localhost) to port 5432 on the container. You can change the ports to fix your needs.
+    ports:
+      - "50001:50001"
+#   Set a volume some that database is not lost after shutting down the container.
+#   I used the name postgres-data but you can changed it to something else.
+    volumes:
+      - ./postgres-data:/home/postgresql/data
+      
+  server:
+    build:
+      context: ./server
+      args:
+        db_url: jdbc:postgresql://db/stand
+    container_name: server
+    links:
+      - "db:db"
+    ports:
+      - "9090:9090"
+      - "6001:6001"
+    command: java -Xms128m -Xmx256m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=256m -XX:MinHeapFreeRatio=40 -XX:MaxHeapFreeRatio=70 -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=6001 -jar server.jar
+
+  client:
+    image: "node:13"
+    container_name: client
+    ports:
+      - "3030:3030"
+    volumes:
+      - "./client:/app"
+    working_dir: /app
+    command: sh -c 'chmod 777 package.json && npm install --quiet && npm start'
+    links:
+      - "server"
