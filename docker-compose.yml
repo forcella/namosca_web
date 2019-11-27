@@ -18,7 +18,7 @@ services:
 #   I used the name postgres-data but you can changed it to something else.
     volumes:
       - ./postgres-data:/home/postgresql/data
-      
+
   server:
     build:
       context: ./server
@@ -36,7 +36,7 @@ services:
     image: "node:13"
     container_name: client
     ports:
-      - "3030:3030"
+      - "4000:3000"
     volumes:
       - "./client:/app"
     working_dir: /app
