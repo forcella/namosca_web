@@ -16,4 +16,8 @@ public class CustomExceptionSchema {
   protected CustomExceptionSchema() {
   }
 
+  public CustomExceptionSchema(String error){
+    this.error = error;
+  }
+
 }

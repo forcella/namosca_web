@@ -1,17 +1,26 @@
 import axios from 'axios'
-import { getToken } from './autenticar'
+import { getToken, logout } from './autenticar'
 
 const api = axios.create({
   baseURL: 'http://127.0.0.1:9090'
 })
 
 api.interceptors.request.use(async config => {
-  console.log(config.headers.Authorization)
+  console.log(config)
   const token = getToken()
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`
+  if (token !== 'undefined' && !!token) {
+    config.headers.Authorization = token
   }
   return config
 })
+
+api.interceptors
+  .response
+  .use(async response => {
+    return response
+  }, async error => {
+    console.log(error)
+    logout()
+  })
 
 export default api

@@ -7,6 +7,8 @@ import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,16 +31,17 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
   @Override
   public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
-      throws IOException {
+      throws JsonParseException, JsonMappingException, IOException {
 
     Credential credentials = new ObjectMapper().readValue(request.getInputStream(), Credential.class);
+  
     try {
       return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(credentials.getUsername(),
           credentials.getPassword(), Collections.emptyList()));
     } catch (Exception e) {
       log.info(e);
-      throw new InvalidCredentialsExeception("Login Inválido", "crie um usuário para logar",
-          "error.credential.invalid");
+      throw new InvalidCredentialsExeception("Credenciais Inválidas", "Se esta conta te pertencer, tente recuperar",
+      "error.credential.credentials.invalid");
     }
 
   }

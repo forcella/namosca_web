@@ -5,7 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.stand.artilharia.dto.CredentialRegisterDTO;
-import br.com.stand.artilharia.exception.CustomException;
+import br.com.stand.artilharia.exception.AlreadyRegistredException;
 import br.com.stand.artilharia.model.Credential;
 import br.com.stand.artilharia.repository.CredentialRepository;
 import lombok.AllArgsConstructor;
@@ -25,7 +25,7 @@ public class CredentialService {
       return repository.save(dto.toCredential());
     } catch (DataIntegrityViolationException e) {
       log.info(e.getCause());
-      throw new CustomException("Email já cadastrado", "Se esta conta te pertencer, tente recuperar",
+      throw new AlreadyRegistredException("Email já cadastrado", "Se esta conta te pertencer, tente recuperar",
           "error.credential.email.arlreadyRegistred");
     }
   }

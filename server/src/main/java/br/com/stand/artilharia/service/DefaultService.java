@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ResolvableType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.stand.artilharia.exception.CustomException;
+import br.com.stand.artilharia.exception.NotFoundException;
 
 public class DefaultService<R extends JpaRepository<C, Long>, C> {
     @Autowired
@@ -18,7 +18,7 @@ public class DefaultService<R extends JpaRepository<C, Long>, C> {
     public C findOne(Long id) {
         Optional<C> obj = repo.findById(id);
         ResolvableType resolvableType = ResolvableType.forClass(repo.getClass()).as(JpaRepository.class);
-        return obj.orElseThrow(() -> new CustomException("Não encontrado",
+        return obj.orElseThrow(() -> new NotFoundException("Não encontrado",
                 String.format("Não foi encontrado, id:%s ", id), String.format("error.%s.notfound",
                         resolvableType.getGeneric(0).getRawClass().getSimpleName().toLowerCase())));
     }

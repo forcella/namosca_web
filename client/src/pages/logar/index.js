@@ -22,7 +22,7 @@ class Registrar extends Component {
     } else {
       try {
         const response = await api.post('/api/login', { email, password })
-        login(response.data.token)
+        login(response.headers.authorization)
         this.props.history.push('/app')
       } catch (err) {
         this.setState({
