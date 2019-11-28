@@ -6,20 +6,20 @@ import org.springframework.stereotype.Service;
 
 import br.com.stand.artilharia.dto.CredentialRegisterDTO;
 import br.com.stand.artilharia.exception.AlreadyRegistredException;
-import br.com.stand.artilharia.model.Credential;
-import br.com.stand.artilharia.repository.CredentialRepository;
+import br.com.stand.artilharia.model.Credenciais;
+import br.com.stand.artilharia.repository.CredenciaisRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 @Service
 @AllArgsConstructor
 @Log4j2
-public class CredentialService {
+public class CredenciaisService {
 
-  private CredentialRepository repository;
+  private CredenciaisRepository repository;
   private PasswordEncoder passwordEncoder;
 
-  public Credential register(CredentialRegisterDTO dto) {
+  public Credenciais register(CredentialRegisterDTO dto) {
     dto.setPassword(passwordEncoder.encode(dto.getPassword()));
     try {
       return repository.save(dto.toCredential());

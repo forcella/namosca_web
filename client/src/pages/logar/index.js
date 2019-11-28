@@ -5,7 +5,7 @@ import Logo from '../../assets/logo.svg'
 import api from '../../services/api'
 import { login } from '../../services/autenticar'
 
-import { Form, Container } from './estilos'
+import { Form, Container } from '../../estilos/registroLogar'
 
 class Registrar extends Component {
   state = {
@@ -21,9 +21,9 @@ class Registrar extends Component {
       this.setState({ error: 'Preencha e-mail e senha para continuar!' })
     } else {
       try {
-        const response = await api.post('/api/login', { email, password })
+        const response = await api.post('/api/logar', { email, password })
         login(response.headers.authorization)
-        this.props.history.push('/app')
+        this.props.history.push('/app/reservas')
       } catch (err) {
         this.setState({
           error:
@@ -51,7 +51,7 @@ class Registrar extends Component {
           />
           <button type='submit'>Entrar</button>
           <hr />
-          <Link to='/registrar'>Criar conta grátis</Link>
+          <Link to='/registrar'>Ainda não tenho cadastro</Link>
         </Form>
       </Container>
     )

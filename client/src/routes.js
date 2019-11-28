@@ -6,14 +6,23 @@ import { isAuthenticated } from './services/autenticar'
 
 import Registrar from './pages/registrar'
 import Logar from './pages/logar'
+import principal from './pages/principal'
+import { Menu } from './components/menu'
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
+const PrivateRoute = ({ component: Component, exact, path, ...rest }) => (
   <Route
     {...rest}
     render={props =>
       isAuthenticated()
-        ? (<Component {...props} />)
-        : (<Redirect to={{ pathname: '/', state: { from: props.location } }} />)}
+        ? <Route
+          exact={exact} path={path} render={(props) => (
+            <div>
+              <Menu />
+              <Component {...props} />
+            </div>
+          )}
+        />
+        : <Redirect to={{ pathname: '/', state: { from: props.location } }} />}
   />
 )
 
@@ -22,8 +31,11 @@ const Rotas = () => (
     <Switch>
       <Route exact path='/' component={Logar} />
       <Route path='/registrar' component={Registrar} />
-      <PrivateRoute path='/app' component={() => <h1>App</h1>} />
-      <Route path='*' component={() => <h1>Page not found</h1>} />
+      <PrivateRoute exact path='/app/reservas' component={() => <h1>RESERVAS</h1>} />
+      <PrivateRoute exact path='/app/clientes' component={() => <h1>clientes</h1>} />
+      <PrivateRoute exact path='/app/ambientes' component={() => <h1>ambientes</h1>} />
+      <PrivateRoute exact path='/app/armas' component={() => <h1>armas</h1>} />
+      <Route component={() => <h1>Page not found</h1>} />
     </Switch>
   </BrowserRouter>
 )

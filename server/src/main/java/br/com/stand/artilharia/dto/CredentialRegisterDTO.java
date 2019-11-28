@@ -1,6 +1,6 @@
 package br.com.stand.artilharia.dto;
 
-import br.com.stand.artilharia.model.Credential;
+import br.com.stand.artilharia.model.Credenciais;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +11,7 @@ public class CredentialRegisterDTO {
   private String email;
   private String password;
 
-  public Credential toCredential() {
-    return Credential.builder().password(password).email(email).enabled(true).build();
+  public Credenciais toCredential() {
+    return Credenciais.builder().password(password).email(email).enabled(true).build();
   }
 }

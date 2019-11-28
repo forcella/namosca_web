@@ -19,17 +19,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class Reservation implements Serializable {
+public class Reserva implements Serializable {
     private static final long serialVersionUID = -5854016886822004154L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @ManyToOne
-    private Client client;
-    private LocalDateTime fromDateTime;
-    private LocalDateTime toDateTime;
-    @OneToMany(mappedBy = "reservation")
-    private Set<LocatedGun> locatedGuns;
+    private Cliente cliente;
+    private LocalDateTime inicoDaLocacao;
+    private LocalDateTime fimDaLocacao;
+    @OneToMany(mappedBy = "reserva")
+    private Set<ArmaLocada> armaLocadas;
 
 }

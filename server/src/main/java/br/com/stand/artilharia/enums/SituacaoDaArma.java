@@ -1,5 +1,5 @@
 package br.com.stand.artilharia.enums;
 
-public enum GunSituation {
+public enum SituacaoDaArma {
     AVAILABLE, UNAVAILABLE, MAINTENANCE
 }

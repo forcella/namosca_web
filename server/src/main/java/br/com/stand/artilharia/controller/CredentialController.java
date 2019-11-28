@@ -1,8 +1,8 @@
 package br.com.stand.artilharia.controller;
 
 import br.com.stand.artilharia.dto.CredentialRegisterDTO;
-import br.com.stand.artilharia.model.Credential;
-import br.com.stand.artilharia.service.CredentialService;
+import br.com.stand.artilharia.model.Credenciais;
+import br.com.stand.artilharia.service.CredenciaisService;
 import java.net.URI;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +15,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestController
 public class CredentialController extends DefaultController {
 
-  private CredentialService service;
+  private CredenciaisService service;
 
-  @PostMapping("/register")
+  @PostMapping("/registrar")
   public ResponseEntity<Object> register(@RequestBody CredentialRegisterDTO dto) {
-    Credential credential = service.register(dto);
-    URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(credential.getId())
+    Credenciais credenciais = service.register(dto);
+    URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(
+        credenciais.getId())
         .toUri();
     return ResponseEntity.created(location).build();
   }

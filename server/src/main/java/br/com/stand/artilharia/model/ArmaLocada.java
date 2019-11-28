@@ -14,15 +14,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class LocatedGun implements Serializable {
+public class ArmaLocada implements Serializable {
     private static final long serialVersionUID = -1480985512327327668L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private int quantity;
+    private int quantidade;
     @ManyToOne
-    private Reservation reservation;
-    private Gun gun;
+    private Reserva reserva;
+    private Arma arma;
 }

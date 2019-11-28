@@ -1,6 +1,6 @@
 package br.com.stand.artilharia.service;
 
-import br.com.stand.artilharia.repository.CredentialRepository;
+import br.com.stand.artilharia.repository.CredenciaisRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,18 +12,18 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-  private CredentialRepository repository;
+  private CredenciaisRepository repository;
 
   @Override
   @Transactional
   public UserDetails loadUserByUsername(String username) {
     return repository.findCredentialByEmail(username)
-        .orElseThrow(() -> new UsernameNotFoundException("User not found with username  " + username));
+        .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado:" + username));
   }
 
-  // This method is used by JWTAuthenticationFilter
   @Transactional
   public UserDetails loadUserById(Long id) {
-    return repository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User not found with id : " + id));
+    return repository.findById(id).orElseThrow(
+        () -> new UsernameNotFoundException("Usuário com id: : " + id + " não encontrado"));
   }
 }

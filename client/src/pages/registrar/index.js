@@ -7,7 +7,7 @@ import Logo from '../../assets/logo.svg'
 
 import api from '../../services/api'
 
-import { Form, Container } from './estilos'
+import { Form, Container } from '../../estilos/registroLogar'
 
 class Logar extends Component {
   state = {
@@ -23,7 +23,7 @@ handleSignUp = async e => {
     this.setState({ error: 'Preencha todos os dados para se cadastrar' })
   } else {
     try {
-      await api.post('/api/register', { email, password })
+      await api.post('/api/registrar', { email, password })
       this.props.history.push('/')
     } catch (err) {
       console.log(err)
@@ -48,7 +48,7 @@ render () {
           placeholder='Senha'
           onChange={e => this.setState({ password: e.target.value })}
         />
-        <button type='submit'>Cadastrar grátis</button>
+        <button type='submit'>Cadastrar</button>
         <hr />
         <Link to='/'>Fazer login</Link>
       </Form>

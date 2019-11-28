@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.stand.artilharia.exception.NotFoundException;
 
-public class DefaultService<R extends JpaRepository<C, Long>, C> {
+public abstract class DefaultService<R extends JpaRepository<C, Long>, C> {
     @Autowired
     protected R repo;
 

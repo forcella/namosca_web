@@ -18,7 +18,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Client implements Serializable {
+public class Cliente implements Serializable {
   private static final long serialVersionUID = -7838886369520351317L;
 
   @Id
@@ -26,15 +26,11 @@ public class Client implements Serializable {
   @JsonView({ UserView.List.class })
   private Long id;
 
-  @OneToOne
   @JsonView({ UserView.Get.class })
-  private Credential credentials;
+  private String primeiroNome;
 
   @JsonView({ UserView.Get.class })
-  private String firtstName;
-
-  @JsonView({ UserView.Get.class })
-  private String lastName;
+  private String ultimoNome;
 
   @JsonView({ UserView.Get.class })
   private Long rg;
@@ -43,13 +39,13 @@ public class Client implements Serializable {
   private Long cpf;
 
   @JsonView({ UserView.Get.class })
-  private Long phone;
+  private Long telefone;
 
   @JsonView({ UserView.Get.class })
-  private LocalDate bornDate;
+  private LocalDate dataNascimento;
 
   @JsonView({ UserView.Get.class })
-  public String getFullName() {
-    return String.format("%s %s", firtstName, lastName);
+  public String getNomeCompleto() {
+    return String.format("%s %s", primeiroNome, ultimoNome);
   }
 }

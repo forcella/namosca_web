@@ -29,7 +29,7 @@ import br.com.stand.artilharia.view.UserView;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "email" }) })
-public class Credential implements UserDetails {
+public class Credenciais implements UserDetails {
 
   private static final long serialVersionUID = -6888749860111966867L;
 
@@ -42,9 +42,6 @@ public class Credential implements UserDetails {
   private String email;
 
   private String password;
-
-  @OneToOne
-  private Client client;
 
   private Boolean enabled;
 

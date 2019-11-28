@@ -31,11 +31,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity httpSecurity) throws Exception {
-    httpSecurity.cors().and().csrf().disable().authorizeRequests().antMatchers(HttpMethod.POST, "/api/login")
-        .permitAll().antMatchers(HttpMethod.POST, "/api/register").permitAll().anyRequest().authenticated().and()
+    httpSecurity.cors().and().csrf().disable().authorizeRequests().antMatchers(HttpMethod.POST, "/api/logar")
+        .permitAll().antMatchers(HttpMethod.POST, "/api/registrar").permitAll().anyRequest().authenticated().and()
 
         // filtra requisições de login
-        .addFilterBefore(new JWTLoginFilter("/api/login", authenticationManager()),
+        .addFilterBefore(new JWTLoginFilter("/api/logar", authenticationManager()),
             UsernamePasswordAuthenticationFilter.class)
 
         // filtra outras requisições para verificar a presença do JWT no header

@@ -9,16 +9,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import br.com.stand.artilharia.enums.Brand;
-import br.com.stand.artilharia.enums.Caliber;
-import br.com.stand.artilharia.enums.GunSituation;
+import br.com.stand.artilharia.enums.Marca;
+import br.com.stand.artilharia.enums.Calibre;
+import br.com.stand.artilharia.enums.SituacaoDaArma;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-public class Gun implements Serializable {
+public class Arma implements Serializable {
 
     private static final long serialVersionUID = -4560616246394961016L;
 
@@ -26,14 +26,14 @@ public class Gun implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private String description;
+    private String descricao;
 
     @Enumerated(EnumType.STRING)
-    private Brand brand;
+    private Marca marca;
 
     @Enumerated(EnumType.STRING)
-    private Caliber cabilber;
+    private Calibre calibre;
 
     @Enumerated(EnumType.STRING)
-    private GunSituation situation;
+    private SituacaoDaArma situacao;
 }

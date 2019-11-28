@@ -18,7 +18,7 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import br.com.stand.artilharia.exception.InvalidCredentialsExeception;
-import br.com.stand.artilharia.model.Credential;
+import br.com.stand.artilharia.model.Credenciais;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -33,7 +33,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
   public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
       throws JsonParseException, JsonMappingException, IOException {
 
-    Credential credentials = new ObjectMapper().readValue(request.getInputStream(), Credential.class);
+    Credenciais credentials = new ObjectMapper().readValue(request.getInputStream(), Credenciais.class);
   
     try {
       return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(credentials.getUsername(),
