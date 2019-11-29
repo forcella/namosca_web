@@ -8,7 +8,7 @@ import Registrar from './pages/registrar'
 import Logar from './pages/logar'
 import { Menu } from './components/menu'
 
-import Reserva from './pages/reserva'
+import { Reserva, Reservas } from './pages/reserva'
 
 const PrivateRoute = ({ component: Component, exact, path, ...rest }) => (
   <Route
@@ -24,7 +24,7 @@ const PrivateRoute = ({ component: Component, exact, path, ...rest }) => (
               </div>
             </div>
           )}
-        />
+          />
         : <Redirect to={{ pathname: '/', state: { from: props.location } }} />}
   />
 )
@@ -34,7 +34,7 @@ const Rotas = () => (
     <Switch>
       <Route exact path='/' component={Logar} />
       <Route path='/registrar' component={Registrar} />
-      <PrivateRoute exact path='/app/reservas' component={() => <h1>RESERVAS</h1>} />
+      <PrivateRoute exact path='/app/reservas' component={Reservas} />
       <PrivateRoute exact path='/app/reservas/:id' component={Reserva} />
       <PrivateRoute exact path='/app/clientes' component={() => <h1>clientes</h1>} />
       <PrivateRoute exact path='/app/ambientes' component={() => <h1>ambientes</h1>} />

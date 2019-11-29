@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link, withRouter, Redirect } from 'react-router-dom'
 
-import Logo from '../../assets/logo.svg'
+import Logo from '../../assets/mosca_logo.png'
 import api from '../../services/api'
 import { login, isAuthenticated } from '../../services/autenticar'
 

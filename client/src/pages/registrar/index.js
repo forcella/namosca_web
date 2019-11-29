@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom'
 
 import PropTypes from 'prop-types'
 
-import Logo from '../../assets/logo.svg'
+import Logo from '../../assets/mosca_logo.png'
 
 import api from '../../services/api'
 

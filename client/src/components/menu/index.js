@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { logout } from '../../services/autenticar'
+import Logo from '../../assets/icon-alvo.png'
+
 
 const pagina = {
   reservas: 'reservas',
@@ -19,7 +21,7 @@ class Menu extends Component {
     return (
       <nav className='navbar navbar-expand navbar-dark bg-dark'>
         <Link className='navbar-brand' to='/app/reservas'>
-                NAMOSCA
+          <img src={Logo} style={{width: 40}} />
         </Link>
         <div className='collapse navbar-collapse' id='navbarSupportedContent'>
           <ul className='navbar-nav mr-auto'>
