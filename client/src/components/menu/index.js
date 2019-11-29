@@ -1,38 +1,55 @@
 import React, { Component } from 'react'
-import { Link, withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { logout } from '../../services/autenticar'
+
+const pagina = {
+  reservas: 'reservas',
+  clientes: 'clientes',
+  ambientes: 'ambientes',
+  armas: 'armas'
+}
 
 class Menu extends Component {
+ 
+  paginaAtiva = pagina => {
+    return this.props.caminho.includes(pagina) ? 'active' : ''
+  }
+
   render () {
     return (
-      <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
-        <Link className='navbar-brand' to='/app'>
+      <nav className='navbar navbar-expand navbar-dark bg-dark'>
+        <Link className='navbar-brand' to='/app/reservas'>
                 NAMOSCA
         </Link>
         <div className='collapse navbar-collapse' id='navbarSupportedContent'>
           <ul className='navbar-nav mr-auto'>
-            <li className='nav-item '>
-              <Link className='nav-link' to='/app/reservas'>
+            <li className={`nav-item ${this.paginaAtiva(pagina.reservas)}`}>
+              <Link className='nav-link' to={pagina.reservas}>
                     Reservas
               </Link>
             </li>
-            <li className='nav-item '>
-              <Link className='nav-link' to='/app/clientes'>
+            <li className={`nav-item ${this.paginaAtiva(pagina.clientes)}`}>
+              <Link className='nav-link' to={pagina.clientes}>
                     Clientes
               </Link>
             </li>
-            <li className='nav-item '>
-              <Link className='nav-link' to='/app/ambientes'>
+            <li className={`nav-item ${this.paginaAtiva(pagina.ambientes)}`}>
+              <Link className='nav-link' to={pagina.ambientes}>
                     Ambientes
               </Link>
             </li>
-            <li className='nav-item '>
-              <Link className='nav-link' to='/app/armas'>
+            <li className={`nav-item ${this.paginaAtiva(pagina.armas)}`}>
+              <Link className='nav-link' to={pagina.armas}>
                     Armas
               </Link>
             </li>
           </ul>
           <form className='form-inline my-2 my-lg-0'>
-            <button className='btn btn-outline-secondary my-2 my-sm-0' type='button'>Sair</button>
+            <button
+              onClick={() => logout()}
+              className='btn btn-outline-secondary my-2 my-sm-0' type='button'
+            >Sair
+            </button>
           </form>
         </div>
       </nav>

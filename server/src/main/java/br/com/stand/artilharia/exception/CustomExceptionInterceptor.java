@@ -12,7 +12,7 @@ public class CustomExceptionInterceptor extends ResponseEntityExceptionHandler {
 
   @ResponseBody
   @ExceptionHandler(value = { CustomException.class })
-  @ResponseStatus(HttpStatus.UNAUTHORIZED)
+  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public CustomExceptionSchema handleConflict(CustomException ex) {
    CustomExceptionSchema error = new CustomExceptionSchema(ex.getMessage(),ex.getHint(),ex.getError());
     return error;

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import App from './App'
 import './estilo.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'font-awesome/css/font-awesome.css'
 import * as serviceWorker from './serviceWorker'
 
 ReactDOM.render(<App />, document.getElementById('root'))

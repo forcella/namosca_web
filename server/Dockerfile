@@ -2,6 +2,7 @@
 FROM maven:3.5-jdk-8
 
 ARG db_url
+
 ENV DB_URL=${db_url}
 
 WORKDIR /app

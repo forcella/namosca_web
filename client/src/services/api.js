@@ -6,7 +6,6 @@ const api = axios.create({
 })
 
 api.interceptors.request.use(async config => {
-  console.log(config)
   const token = getToken()
   if (token !== 'undefined' && !!token) {
     config.headers.Authorization = token
@@ -19,9 +18,8 @@ api.interceptors
   .use(async response => {
     return response
   }, async error => {
-    console.log(error)
-    // if (error.status === 401 || error.status === 403) { logout() }
-    logout()
+    if (error.status === 401 || error.status === 403) { logout() }
+    return Promise.reject(error.response)
   })
 
 export default api

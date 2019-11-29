@@ -10,7 +10,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=stand
+      - POSTGRES_DB=namosca_db
 #   Maps port 54320 (localhost) to port 5432 on the container. You can change the ports to fix your needs.
     ports:
       - "5432:5432"
@@ -23,7 +23,7 @@ services:
     build:
       context: ./server
       args:
-        db_url: jdbc:postgresql://db/stand
+        db_url: jdbc:postgresql://db/namosca_db
     container_name: namosca_server
     links:
       - "db:db"

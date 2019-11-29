@@ -6,8 +6,9 @@ import { isAuthenticated } from './services/autenticar'
 
 import Registrar from './pages/registrar'
 import Logar from './pages/logar'
-import principal from './pages/principal'
 import { Menu } from './components/menu'
+
+import Reserva from './pages/reserva'
 
 const PrivateRoute = ({ component: Component, exact, path, ...rest }) => (
   <Route
@@ -17,8 +18,10 @@ const PrivateRoute = ({ component: Component, exact, path, ...rest }) => (
         ? <Route
           exact={exact} path={path} render={(props) => (
             <div>
-              <Menu />
-              <Component {...props} />
+              <Menu caminho={path} />
+              <div className='container conteudo'>
+                <Component {...props} />
+              </div>
             </div>
           )}
         />
@@ -32,6 +35,7 @@ const Rotas = () => (
       <Route exact path='/' component={Logar} />
       <Route path='/registrar' component={Registrar} />
       <PrivateRoute exact path='/app/reservas' component={() => <h1>RESERVAS</h1>} />
+      <PrivateRoute exact path='/app/reservas/:id' component={Reserva} />
       <PrivateRoute exact path='/app/clientes' component={() => <h1>clientes</h1>} />
       <PrivateRoute exact path='/app/ambientes' component={() => <h1>ambientes</h1>} />
       <PrivateRoute exact path='/app/armas' component={() => <h1>armas</h1>} />
