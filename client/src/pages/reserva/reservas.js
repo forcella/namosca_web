@@ -29,6 +29,7 @@ class Reservas extends Component {
             </tr>
           </tbody>
         </table>
+        <button type='submit' className='btn btn-secondary float-right'>Nova Reserva</button>
       </form>
     )
   }

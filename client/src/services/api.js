@@ -16,10 +16,12 @@ api.interceptors.request.use(async config => {
 api.interceptors
   .response
   .use(async response => {
-    return response
+    return Promise.resolve(response)
   }, async error => {
-    if (error.status === 401 || error.status === 403) { logout() }
-    return Promise.reject(error.response)
+    const { response } = await error
+    console.log(error.response)
+    if (response.status === 401 || response.status === 403) { logout() }
+    return Promise.reject(response)
   })
 
 export default api

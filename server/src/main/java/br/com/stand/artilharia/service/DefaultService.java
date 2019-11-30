@@ -7,11 +7,16 @@ import com.google.common.collect.Sets;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ResolvableType;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.stand.artilharia.exception.NotFoundException;
+import br.com.stand.artilharia.model.Modelo;
+import lombok.extern.log4j.Log4j2;
 
-public abstract class DefaultService<R extends JpaRepository<C, Long>, C> {
+@Log4j2
+public abstract class DefaultService<R extends JpaRepository<C, Long>, C extends Modelo> {
     @Autowired
     protected R repo;
 
@@ -23,7 +28,29 @@ public abstract class DefaultService<R extends JpaRepository<C, Long>, C> {
                         resolvableType.getGeneric(0).getRawClass().getSimpleName().toLowerCase())));
     }
 
-    public Set<C> listAll() {
-        return Sets.newHashSet(repo.findAll());
+    public abstract Page<C> getAll(String busca, PageRequest pageRequest);
+
+    public C save(C obj) {
+        try {
+            return repo.save(obj);
+        } catch (Exception e) {
+            log.info(e);
+            return null;
+        }
+    }
+
+    public C update(Long id, C obj) {
+        obj.setId(id);
+        return save(obj);
+    }
+
+    public Boolean delete(Long id) {
+        try {
+            repo.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            log.info(e);
+            return false;
+        }
     }
 }

@@ -1,13 +1,26 @@
-body, html {
-  background: #eee;
-  font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
-  text-rendering: optimizeLegibility !important;
-  -webkit-font-smoothing: antialiased !important;
-  height: 100%;
-  width: 100%;
+body,
+html {
+	background: #eee;
+	font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+	text-rendering: optimizeLegibility !important;
+	-webkit-font-smoothing: antialiased !important;
+	height: 100%;
+	width: 100%;
 }
 
-.conteudo{
-  margin-top: 25px;
+.conteudo {
+	margin-top: 25px;
 }
 
+.titulo {
+	padding-bottom: 15px;
+	text-align: center;
+	color: #6c757d;
+}
+
+label {
+	background-color: #343a40;
+	border-color: #454d55;
+	padding: 5px 20px;
+	color: #fff;
+}

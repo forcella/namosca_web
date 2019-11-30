@@ -1,21 +1,18 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 
-import PropTypes from 'prop-types'
-
 import Logo from '../../assets/mosca_logo.png'
 
 import api from '../../services/api'
 
 import { Form, Container } from '../../estilos/registroLogar'
-import paginaPublica from '../../components/paginaPublica'
 
 class Logar extends Component {
   state = {
     email: '',
     password: '',
     error: ''
-  };
+  }
 
 handleSignUp = async e => {
   e.preventDefault()
@@ -38,27 +35,25 @@ handleSignUp = async e => {
 
 render () {
   return (
-    <paginaPublica>
-      <Container>
-        <Form onSubmit={this.handleSignUp}>
-          <img src={Logo} alt='Logo' />
-          {this.state.error && <p>{this.state.error}</p>}
-          <input
-            type='email'
-            placeholder='Endereço de e-mail'
-            onChange={e => this.setState({ email: e.target.value })}
-          />
-          <input
-            type='password'
-            placeholder='Senha'
-            onChange={e => this.setState({ password: e.target.value })}
-          />
-          <button type='submit'>Cadastrar</button>
-          <hr />
-          <Link to='/'>Fazer login</Link>
-        </Form>
-      </Container>
-    </paginaPublica>
+    <Container>
+      <Form onSubmit={this.handleSignUp}>
+        <img src={Logo} alt='Logo' />
+        {this.state.error && <p>{this.state.error}</p>}
+        <input
+          type='email'
+          placeholder='Endereço de e-mail'
+          onChange={e => this.setState({ email: e.target.value })}
+        />
+        <input
+          type='password'
+          placeholder='Senha'
+          onChange={e => this.setState({ password: e.target.value })}
+        />
+        <button type='submit'>Cadastrar</button>
+        <hr />
+        <Link to='/'>Fazer login</Link>
+      </Form>
+    </Container>
   )
 }
 }

@@ -1,18 +1,16 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { logout } from '../../services/autenticar'
 import Logo from '../../assets/icon-alvo.png'
 
-
 const pagina = {
-  reservas: 'reservas',
-  clientes: 'clientes',
-  ambientes: 'ambientes',
-  armas: 'armas'
+  reservas: '/app/reservas',
+  clientes: '/app/clientes',
+  ambientes: '/app/ambientes',
+  armas: '/app/armas'
 }
 
 class Menu extends Component {
- 
   paginaAtiva = pagina => {
     return this.props.caminho.includes(pagina) ? 'active' : ''
   }
@@ -20,8 +18,8 @@ class Menu extends Component {
   render () {
     return (
       <nav className='navbar navbar-expand navbar-dark bg-dark'>
-        <Link className='navbar-brand' to='/app/reservas'>
-          <img src={Logo} style={{width: 40}} />
+        <Link className='navbar-brand' to='/'>
+          <img src={Logo} style={{ width: 40 }} />
         </Link>
         <div className='collapse navbar-collapse' id='navbarSupportedContent'>
           <ul className='navbar-nav mr-auto'>
@@ -59,4 +57,4 @@ class Menu extends Component {
   }
 }
 
-export { Menu }
+export default withRouter(Menu)

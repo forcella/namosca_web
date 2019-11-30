@@ -1,0 +1,12 @@
+.erro {
+	margin-bottom: 20px;
+	padding: 0 0 0 0;
+	text-align: center;
+	font-size: 15px;
+	background: #e25656;
+	color: #fff;
+}
+
+.erro p{
+	padding: 15px;
+}

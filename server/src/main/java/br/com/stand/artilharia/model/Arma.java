@@ -18,7 +18,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Arma implements Serializable {
+public class Arma implements Serializable, Modelo {
 
     private static final long serialVersionUID = -4560616246394961016L;
 
