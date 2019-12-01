@@ -47,7 +47,7 @@ public class ClienteController extends DefaultController<Cliente> {
 
     @Override
     @PutMapping("/clientes/{id}")
-    protected ResponseEntity<Cliente> put(@PathVariable Long id, @RequestBody Cliente obj) {
+    protected ResponseEntity<Cliente> put(@PathVariable Long id, @Valid @RequestBody Cliente obj) {
         return ResponseEntity.ok().body(service.update(id, obj));
     }
 

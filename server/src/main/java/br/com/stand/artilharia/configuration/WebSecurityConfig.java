@@ -27,7 +27,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   private CustomUserDetailsService service;
-  
 
   @Override
   protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -38,7 +37,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .addFilterBefore(new JWTLoginFilter("/api/logar", authenticationManager()),
             UsernamePasswordAuthenticationFilter.class)
 
-        // filtra outras requisições para verificar a presença do JWT no header
+        // filtra outras requisições para verificar a presença do
+        // JWT(token/autencicacao) no header
         .addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
   }
 
@@ -52,21 +52,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     return new BCryptPasswordEncoder();
   }
 
+  // Configuração para devolver a autorização(token) do header
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
-  
-      CorsConfiguration configuration = new CorsConfiguration();
-      configuration.setAllowCredentials(true);
-      configuration.setAllowedOrigins(Arrays.asList("*"));
-      configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
-      configuration.setAllowedHeaders(Arrays.asList("X-Requested-With","Origin","Content-Type","Accept","Authorization"));
-  
-      // This allow us to expose the headers
-      configuration.setExposedHeaders(Arrays.asList("Access-Control-Allow-Headers", "Authorization, x-xsrf-token, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, " +
-              "Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"));
-  
-      UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-      source.registerCorsConfiguration("/**", configuration);
-      return source;
+
+    CorsConfiguration configuration = new CorsConfiguration();
+    configuration.setAllowCredentials(true);
+    configuration.setAllowedOrigins(Arrays.asList("*"));
+    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+    configuration
+        .setAllowedHeaders(Arrays.asList("X-Requested-With", "Origin", "Content-Type", "Accept", "Authorization"));
+
+    // This allow us to expose the headers
+    configuration.setExposedHeaders(Arrays.asList("Access-Control-Allow-Headers",
+        "Authorization, x-xsrf-token, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, "
+            + "Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"));
+
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", configuration);
+    return source;
   }
 }

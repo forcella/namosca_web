@@ -54,7 +54,7 @@ handleErroValidacao =(err) => {
   } else if (err.data.message) {
     this.setState({ erro: err.data.message })
   } else {
-    this.setState('Erro não mapeado')
+    this.setState({ erro: 'Erro não mapeado' })
   }
 }
 
@@ -64,7 +64,7 @@ handleErroValidacao =(err) => {
      await api.put(`/api/clientes/${this.getId()}`, { primeiroNome, ultimoNome, cpf, rg, telefone, dataNascimento, ativo })
      this.props.history.goBack()
    } catch (err) {
-     this.setState({ erro: err.data.message })
+     this.handleErroValidacao(err)
    }
  }
 

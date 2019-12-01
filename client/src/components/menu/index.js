@@ -19,7 +19,7 @@ class Menu extends Component {
     return (
       <nav className='navbar navbar-expand navbar-dark bg-dark'>
         <Link className='navbar-brand' to='/'>
-          <img src={Logo} style={{ width: 40 }} />
+          <img src={Logo} style={{ width: 40 }} alt='namosca' />
         </Link>
         <div className='collapse navbar-collapse' id='navbarSupportedContent'>
           <ul className='navbar-nav mr-auto'>
