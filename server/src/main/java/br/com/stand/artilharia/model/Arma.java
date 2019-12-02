@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import br.com.stand.artilharia.enums.Marca;
 import br.com.stand.artilharia.enums.Calibre;
 import br.com.stand.artilharia.enums.SituacaoDaArma;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,14 +28,22 @@ public class Arma implements Serializable, Modelo {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NotEmpty(message = "Precisa preencher a descrição")
     private String descricao;
 
+    @NotNull(message = "Precisa preencher a marca")
     @Enumerated(EnumType.STRING)
     private Marca marca;
 
+    @NotNull(message = "Precisa preencher o calibre")
     @Enumerated(EnumType.STRING)
     private Calibre calibre;
 
+    @NotNull(message = "Precisa preencher a situação")
     @Enumerated(EnumType.STRING)
     private SituacaoDaArma situacao;
+
+    public String getResumo(){
+        return descricao + " - " + marca + " - " + calibre + " | " + situacao;
+    }
 }

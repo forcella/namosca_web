@@ -1,5 +1,6 @@
 package br.com.stand.artilharia.controller;
 
+import javax.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -25,7 +26,7 @@ public class AmbienteController extends DefaultController<Ambiente> {
 
     @Override
     @GetMapping("/ambientes")
-    protected ResponseEntity<Page<Ambiente>> getAll(@RequestParam("pagina") int pagina,
+    public ResponseEntity<Page<Ambiente>> getAll(@RequestParam("pagina") int pagina,
             @RequestParam("tamanho") int tamanho, String busca) {
         return ResponseEntity.ok()
                 .body(service.getAll(busca, (PageRequest.of(pagina, tamanho, Sort.by("id").descending()))));
@@ -33,25 +34,25 @@ public class AmbienteController extends DefaultController<Ambiente> {
 
     @Override
     @GetMapping("/ambientes/{id}")
-    protected ResponseEntity<Ambiente> get(@PathVariable("id") Long id) {
+    public ResponseEntity<Ambiente> get(@PathVariable("id") Long id) {
         return ResponseEntity.ok().body(service.findOne(id));
     }
 
     @Override
     @PostMapping("/ambientes")
-    protected ResponseEntity<Ambiente> post(@RequestBody Ambiente obj) {
+    public ResponseEntity<Ambiente> post(@Valid @RequestBody Ambiente obj) {
         return ResponseEntity.ok().body(service.save(obj));
     }
 
     @Override
     @PutMapping("/ambientes/{id}")
-    protected ResponseEntity<Ambiente> put(@PathVariable Long id, @RequestBody Ambiente obj) {
+    public ResponseEntity<Ambiente> put(@PathVariable Long id,@Valid @RequestBody Ambiente obj) {
         return ResponseEntity.ok().body(service.update(id, obj));
     }
 
     @Override
     @DeleteMapping("/ambientes/{id}")
-    protected ResponseEntity<Boolean> delete(@PathVariable Long id) {
+    public ResponseEntity<Boolean> delete(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.delete(id));
     }
 }

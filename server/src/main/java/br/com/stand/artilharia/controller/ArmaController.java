@@ -1,5 +1,6 @@
 package br.com.stand.artilharia.controller;
 
+import javax.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -25,7 +26,7 @@ public class ArmaController extends DefaultController<Arma> {
 
     @Override
     @GetMapping("/armas")
-    protected ResponseEntity<Page<Arma>> getAll(@RequestParam("pagina") int pagina,
+    public ResponseEntity<Page<Arma>> getAll(@RequestParam("pagina") int pagina,
             @RequestParam("tamanho") int tamanho, String busca) {
         return ResponseEntity.ok()
                 .body(service.getAll(busca, (PageRequest.of(pagina, tamanho, Sort.by("id").descending()))));
@@ -33,25 +34,25 @@ public class ArmaController extends DefaultController<Arma> {
 
     @Override
     @GetMapping("/armas/{id}")
-    protected ResponseEntity<Arma> get(@PathVariable("id") Long id) {
+    public ResponseEntity<Arma> get(@PathVariable("id") Long id) {
         return ResponseEntity.ok().body(service.findOne(id));
     }
 
     @Override
     @PostMapping("/armas")
-    protected ResponseEntity<Arma> post(@RequestBody Arma obj) {
+    public ResponseEntity<Arma> post(@Valid @RequestBody Arma obj) {
         return ResponseEntity.ok().body(service.save(obj));
     }
 
     @Override
     @PutMapping("/armas/{id}")
-    protected ResponseEntity<Arma> put(@PathVariable Long id, @RequestBody Arma obj) {
+    public ResponseEntity<Arma> put(@Valid @PathVariable Long id, @RequestBody Arma obj) {
         return ResponseEntity.ok().body(service.update(id, obj));
     }
 
     @Override
     @DeleteMapping("/armas/{id}")
-    protected ResponseEntity<Boolean> delete(@PathVariable Long id) {
+    public ResponseEntity<Boolean> delete(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.delete(id));
     }
 }

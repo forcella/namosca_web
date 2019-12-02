@@ -1,7 +1,15 @@
 package br.com.stand.artilharia.exception;
 
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,6 +23,8 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
@@ -25,27 +35,30 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
-public class MethodArgumentNotValidExceptionHandler {
+public class MethodArgumentNotValidExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ResponseStatus(BAD_REQUEST)
-    @ResponseBody
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public List<ValidationError> methodArgumentNotValidException(MethodArgumentNotValidException ex) {
-        BindingResult result = ex.getBindingResult();
-        List<org.springframework.validation.FieldError> fieldErrors = result.getFieldErrors();
-        List<ValidationError> erros = new ArrayList<>();
+    // error handle for @Valid
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+        HttpHeaders headers,
+        HttpStatus status, WebRequest request) {
 
-        fieldErrors.forEach(err -> erros.add(new ValidationError(err.getField(), err.getDefaultMessage())));
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", new Date());
+        body.put("status", status.value());
 
-        return erros;
-    }
+        //Get all errors
+        List<String> errors = ex.getBindingResult()
+            .getFieldErrors()
+            .stream()
+            .map(DefaultMessageSourceResolvable::getDefaultMessage)
+            .collect(Collectors.toList());
 
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    static class ValidationError {
-        private String field;
-        private String message;
+        body.put("errors", errors);
+
+        return new ResponseEntity<>(body, headers, status);
+
     }
 
 }
+

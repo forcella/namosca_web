@@ -89,7 +89,7 @@ editando =() => (this.getId() !== 'cadastrar')
              <select id='marca' className='form-control' onChange={this.handleChange} value={marca}>
                <option value='TAURUS'>Taurus</option>
                <option value='ROSSI'>Rossi</option>
-               <option value='CLOCK'>Clock</option>
+               <option value='GLOCK'>Glock</option>
                <option value='CBC'>CBC</option>
                <option value='CZ'>CZ</option>
              </select>

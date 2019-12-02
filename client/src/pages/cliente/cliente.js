@@ -46,9 +46,9 @@ editando =() => (this.getId() !== 'cadastrar')
  }
 
 handleErroValidacao =(err) => {
-  const { data } = err
-  if (Array.isArray(data)) {
-    const erros = data.map(e => `*${e.message}\n`)
+  const { errors } = err.data
+  if (Array.isArray(errors)) {
+    const erros = errors.map(e => `*${e}\n`)
     this.setState({ erro: erros })
     console.log(erros)
   } else if (err.data.message) {

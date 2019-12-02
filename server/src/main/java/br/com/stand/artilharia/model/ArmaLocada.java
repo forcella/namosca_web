@@ -1,5 +1,6 @@
 package br.com.stand.artilharia.model;
 
+import br.com.stand.artilharia.dto.ArmaLocadaDto;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
@@ -8,12 +9,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ArmaLocada implements Serializable {
     private static final long serialVersionUID = -1480985512327327668L;
 
@@ -25,4 +32,11 @@ public class ArmaLocada implements Serializable {
     @ManyToOne
     private Reserva reserva;
     private Arma arma;
+
+  public static ArmaLocadaDto converterParaDto(ArmaLocada armaLocada) {
+    return ArmaLocadaDto.builder()
+        .id(armaLocada.arma.getId())
+        .quantidade(armaLocada.quantidade)
+        .build();
+  }
 }

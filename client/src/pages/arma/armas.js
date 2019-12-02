@@ -11,9 +11,9 @@ class Armas extends Component {
     busca: ''
   }
 
-    componentDidMount = () => {
-      this.listar()
-    }
+  componentDidMount = () => {
+    this.listar()
+  }
 
   listar = async () => {
     const { busca, pagina, tamanho } = this.state
@@ -58,7 +58,7 @@ const mostarDadosNaTabela = (armas) => {
         <td>{arma.situacao}</td>
         <td align='center'>
           <Link to={`/app/armas/${arma.id}`}>
-            <i className='fa  fas fa-edit' style={{ fontSize: 40, marginRight: 10 }} title='Editar Reserva' />
+            <i className='fa  fas fa-edit' style={{ fontSize: 40, marginRight: 10 }} title='Editar Arma' />
           </Link>
 
           {/* <i className='fa  fas fa-ban' style={{ fontSize: 40 }} title='Excluir' /> */}

@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.fasterxml.jackson.annotation.JsonView;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,8 +16,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import br.com.stand.artilharia.view.UserView;
 
 @Setter
 @Getter
@@ -34,10 +30,8 @@ public class Credenciais implements UserDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
-  @JsonView({ UserView.Get.class })
   private long id;
 
-  @JsonView({ UserView.Get.class })
   private String email;
 
   private String password;
