@@ -14,12 +14,18 @@ import br.com.stand.artilharia.enums.Calibre;
 import br.com.stand.artilharia.enums.SituacaoDaArma;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Arma implements Serializable, Modelo {
 
     private static final long serialVersionUID = -4560616246394961016L;

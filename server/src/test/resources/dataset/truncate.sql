@@ -1,0 +1,10 @@
+TRUNCATE arma CASCADE;
+TRUNCATE ambiente CASCADE;
+TRUNCATE arma_locada CASCADE;
+TRUNCATE cliente CASCADE;
+TRUNCATE credenciais CASCADE;
+TRUNCATE reserva CASCADE;
+
+
+
+
