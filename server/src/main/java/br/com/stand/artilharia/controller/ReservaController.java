@@ -2,7 +2,6 @@ package br.com.stand.artilharia.controller;
 
 import br.com.stand.artilharia.dto.ReservaDTO;
 import br.com.stand.artilharia.dto.ReservaListarDTO;
-import br.com.stand.artilharia.model.Cliente;
 import br.com.stand.artilharia.model.Reserva;
 import br.com.stand.artilharia.service.ReservaService;
 import lombok.AllArgsConstructor;
@@ -13,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,12 +30,22 @@ public class ReservaController {
     return ResponseEntity.ok().body(service.salvar(dto, null));
   }
 
+  @PutMapping("/{id}")
+  public ResponseEntity<Reserva> post(@RequestBody ReservaDTO dto, @PathVariable Long id) {
+    return ResponseEntity.ok().body(service.salvar(dto, id));
+  }
+
+  @GetMapping("/inativar")
+  public ResponseEntity<Reserva> inativar(@RequestParam Long id) {
+    service.inativar(id);
+    return ResponseEntity.ok().build();
+  }
+
   @GetMapping
   public ResponseEntity<Page<ReservaListarDTO>> getAll(@RequestParam("pagina") int pagina,
       @RequestParam("tamanho") int tamanho, String busca) {
     return ResponseEntity.ok()
-        .body(service
-            .buscarTodos(busca, (PageRequest.of(pagina, tamanho, Sort.by("id").descending()))));
+        .body(service.buscarTodos(busca, (PageRequest.of(pagina, tamanho, Sort.by("id").descending()))));
   }
 
   @GetMapping("{id}")

@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,22 +22,21 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = { "id" })
 public class ArmaLocada implements Serializable {
-    private static final long serialVersionUID = -1480985512327327668L;
+  private static final long serialVersionUID = -1480985512327327668L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  private Long id;
 
-    private int quantidade;
-    @ManyToOne
-    private Reserva reserva;
-    private Arma arma;
+  private int quantidade;
+  @ManyToOne
+  private Reserva reserva;
+  @ManyToOne
+  private Arma arma;
 
   public static ArmaLocadaDto converterParaDto(ArmaLocada armaLocada) {
-    return ArmaLocadaDto.builder()
-        .id(armaLocada.arma.getId())
-        .quantidade(armaLocada.quantidade)
-        .build();
+    return ArmaLocadaDto.builder().id(armaLocada.arma.getId()).quantidade(armaLocada.quantidade).build();
   }
 }

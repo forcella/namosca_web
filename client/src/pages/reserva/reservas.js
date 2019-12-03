@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import api from '../../services/api'
-import {formatarDataHora} from '../../helper/formatarData'
+import { formatarDataHora } from '../../helper/formatarData'
 
 class Reservas extends Component {
   state = {
@@ -25,10 +25,17 @@ class Reservas extends Component {
     this.setState({ reservas: content, elementos: numberOfElements })
   }
 
+  handleInativar = async id => {
+    const url = `/api/reservas/inativar?id=${id}`
+    await api.get(url)
+    this.listar()
+  }
+
   render () {
-    const {reservas} = this.state
+    const { reservas } = this.state
     return (
       <form>
+        <h1 className='titulo'>Lista de Reservas</h1>
         <table className='table table-hover'>
           <thead className='thead-dark'>
             <tr>
@@ -41,7 +48,7 @@ class Reservas extends Component {
             </tr>
           </thead>
           <tbody>
-            {mostarDadosNaTabela(reservas)}
+            {mostarDadosNaTabela(reservas, this.handleInativar)}
           </tbody>
         </table>
         <Link to='reservas/cadastrar' className='btn btn-secondary float-right'> Nova Reserva </Link>
@@ -50,20 +57,24 @@ class Reservas extends Component {
   }
 }
 
-const mostarDadosNaTabela = (reservas) => {
+const mostarDadosNaTabela = (reservas, handleInativar) => {
   return (
     reservas && reservas.map(reserva =>
-      <tr key={reserva.id}>
+      <tr key={reserva.id} className={`${reserva.ativa ? 'reserva-ativa' : 'reserva-inativa'}`}>
         <td>{reserva.cliente}</td>
         <td>{reserva.qtdArmas}</td>
         <td>{formatarDataHora(reserva.inicio)}</td>
         <td>{formatarDataHora(reserva.fim)}</td>
         <td align='center'>
+
           <Link to={`/app/reservas/${reserva.id}`}>
             <i className='fa  fas fa-edit' style={{ fontSize: 40, marginRight: 10 }} title='Editar Arma' />
           </Link>
 
-          {/* <i className='fa  fas fa-ban' style={{ fontSize: 40 }} title='Excluir' /> */}
+          <Link style={{ visibility: !reserva.ativa ? 'hidden' : '' }}>
+            <i className='fa  fas fa-ban' style={{ fontSize: 40 }} title='Desmarcar' onClick={() => handleInativar(reserva.id)} />
+          </Link>
+
         </td>
       </tr>
     )

@@ -51,17 +51,12 @@ public class Reserva implements Serializable {
   private Boolean ativa;
 
   public ReservaDTO converter() {
-    return ReservaDTO.builder()
-        .clienteSelecionado(cliente.getId())
-        .ambienteSelecionado(ambiente.getId())
-        .armasLocadas(converterArmasLocadas(armaLocadas))
-        .ativa(ativa)
-        .inicioDaLocacao(inicioDaLocacao)
-        .fimDaLocacao(fimDaLocacao)
-        .build();
+    return ReservaDTO.builder().clienteSelecionado(cliente.getId()).ambienteSelecionado(ambiente.getId())
+        .armasLocadas(converterArmasLocadas(armaLocadas)).ativa(ativa).inicioDaLocacao(inicioDaLocacao)
+        .fimDaLocacao(fimDaLocacao).build();
   }
 
-  private List<ArmaLocadaDto> converterArmasLocadas(Set<ArmaLocada> armalocadas){
-  return armalocadas.stream().map(ArmaLocada::converterParaDto).collect(Collectors.toList());
+  private Set<ArmaLocadaDto> converterArmasLocadas(Set<ArmaLocada> armalocadas) {
+    return armalocadas.stream().map(ArmaLocada::converterParaDto).collect(Collectors.toSet());
   }
 }

@@ -24,3 +24,11 @@ label {
 	padding: 5px 20px;
 	color: #fff;
 }
+
+.reserva-ativa {
+	color: blue;
+}
+
+.reserva-inativa {
+	color: red;
+}
