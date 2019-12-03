@@ -8,12 +8,19 @@ import javax.persistence.Id;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Ambiente implements Modelo, Serializable {
     private static final long serialVersionUID = -3231050480459880668L;
 
@@ -28,7 +35,7 @@ public class Ambiente implements Modelo, Serializable {
     @NotNull(message = "Precisa preencher alvo")
     private Boolean alvo;
 
-    public String getResumo(){
+    public String getResumo() {
         return descricao + " - área: " + area + " - alvo: " + (alvo ? "SIM" : "NÃO");
     }
 }

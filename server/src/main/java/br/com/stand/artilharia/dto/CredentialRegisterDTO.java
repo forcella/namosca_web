@@ -1,11 +1,13 @@
 package br.com.stand.artilharia.dto;
 
 import br.com.stand.artilharia.model.Credenciais;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class CredentialRegisterDTO {
 
   private String email;

@@ -8,13 +8,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -45,7 +40,7 @@ public class Reserva implements Serializable {
   private LocalDateTime inicioDaLocacao;
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
   private LocalDateTime fimDaLocacao;
-  @OneToMany(mappedBy = "reserva")
+  @OneToMany(mappedBy = "reserva",fetch = FetchType.EAGER)
   private Set<ArmaLocada> armaLocadas;
   @Column(columnDefinition = "boolean default true")
   private Boolean ativa;
