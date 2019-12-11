@@ -28,15 +28,34 @@ public class ReservaService {
     Cliente cliente = clienteService.findOne(reserva.getCliente().getId());
     Ambiente ambiente = ambienteService.findOne(reserva.getAmbiente().getId());
 
-    reserva.setCliente(cliente);
-    reserva.setAmbiente(ambiente);
+
+
+
     if (id == null) {
       reservaRepository.save(reserva);
+      reserva.setCliente(cliente);
+      reserva.setAmbiente(ambiente);
+      Set<ArmaLocada> armasLocadas = armaLocadaService
+              .salvaArmasLocadas(reserva.getArmaLocadas(), reserva);
+
+      reserva.setArmaLocadas(armasLocadas);
+
+    }else{
+      Reserva reservaModificada = buscarReservaPorId(id);
+      reservaModificada.setAmbiente(ambiente);
+      reservaModificada.setCliente(cliente);
+      reservaModificada.setAtiva(reserva.getAtiva());
+      reservaModificada.setInicioDaLocacao(reserva.getInicioDaLocacao());
+      reservaModificada.setFimDaLocacao(reserva.getFimDaLocacao());
+
+      Set<ArmaLocada> armasLocadas = armaLocadaService
+              .salvaArmasLocadas(reserva.getArmaLocadas(), reservaModificada);
+
+      reservaModificada.setArmaLocadas(armasLocadas);
+
+      reserva = reservaRepository.save(reservaModificada);
     }
 
-    Set<ArmaLocada> armasLocadas = armaLocadaService
-        .salvaArmasLocadas(reserva.getArmaLocadas(), reserva);
-    reserva.setArmaLocadas(armasLocadas);
 
     return reservaRepository.save(reserva);
   }

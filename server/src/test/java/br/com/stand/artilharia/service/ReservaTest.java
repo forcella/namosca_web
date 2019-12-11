@@ -76,6 +76,7 @@ public class ReservaTest extends AbstractIntegrationTests {
 
         Reserva reservaSalva = reservaService.salvar(reserva, 1001L);
         assertNotNull(reservaSalva);
+        assertThat(reserva.getId(),equalTo(1001L));
         assertThat(reservaSalva.getArmaLocadas().stream().findFirst().orElse(new ArmaLocada()).getQuantidade(), equalTo(2));
 
     }
