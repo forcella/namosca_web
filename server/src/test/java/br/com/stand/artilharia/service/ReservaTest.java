@@ -1,10 +1,6 @@
 package br.com.stand.artilharia.service;
 
 import br.com.stand.artilharia.AbstractIntegrationTests;
-import br.com.stand.artilharia.dto.ArmaLocadaDto;
-import br.com.stand.artilharia.dto.ReservaDTO;
-import br.com.stand.artilharia.dto.ReservaListarDTO;
-import br.com.stand.artilharia.model.Cliente;
 import br.com.stand.artilharia.model.Reserva;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +10,6 @@ import org.springframework.test.context.jdbc.Sql;
 
 import javax.transaction.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 

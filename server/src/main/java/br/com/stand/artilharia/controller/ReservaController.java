@@ -1,7 +1,5 @@
 package br.com.stand.artilharia.controller;
 
-import br.com.stand.artilharia.dto.ReservaDTO;
-import br.com.stand.artilharia.dto.ReservaListarDTO;
 import br.com.stand.artilharia.model.Reserva;
 import br.com.stand.artilharia.service.ReservaService;
 import lombok.AllArgsConstructor;
@@ -26,13 +24,13 @@ public class ReservaController {
   private ReservaService service;
 
   @PostMapping
-  public ResponseEntity<Reserva> post(@RequestBody ReservaDTO dto) {
-    return ResponseEntity.ok().body(service.salvar(dto, null));
+  public ResponseEntity<Reserva> post(@RequestBody Reserva reserva) {
+    return ResponseEntity.ok().body(service.salvar(reserva, null));
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<Reserva> post(@RequestBody ReservaDTO dto, @PathVariable Long id) {
-    return ResponseEntity.ok().body(service.salvar(dto, id));
+  public ResponseEntity<Reserva> post(@RequestBody Reserva reserva, @PathVariable Long id) {
+    return ResponseEntity.ok().body(service.salvar(reserva, id));
   }
 
   @GetMapping("/inativar")
@@ -42,14 +40,14 @@ public class ReservaController {
   }
 
   @GetMapping
-  public ResponseEntity<Page<ReservaListarDTO>> getAll(@RequestParam("pagina") int pagina,
+  public ResponseEntity<Page<Reserva>> getAll(@RequestParam("pagina") int pagina,
       @RequestParam("tamanho") int tamanho, String busca) {
     return ResponseEntity.ok()
         .body(service.buscarTodos(busca, (PageRequest.of(pagina, tamanho, Sort.by("id").descending()))));
   }
 
   @GetMapping("{id}")
-  public ResponseEntity<ReservaDTO> get(@PathVariable("id") Long id) {
+  public ResponseEntity<Reserva> get(@PathVariable("id") Long id) {
     return ResponseEntity.ok().body(service.buscarReservaPorId(id));
   }
 }

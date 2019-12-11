@@ -1,7 +1,6 @@
 package br.com.stand.artilharia.service;
 
 import br.com.stand.artilharia.AbstractIntegrationTests;
-import br.com.stand.artilharia.dto.CredentialRegisterDTO;
 import br.com.stand.artilharia.model.Credenciais;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

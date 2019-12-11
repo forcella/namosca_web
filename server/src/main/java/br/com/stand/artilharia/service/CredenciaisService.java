@@ -4,7 +4,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.stand.artilharia.dto.CredentialRegisterDTO;
 import br.com.stand.artilharia.exception.AlreadyRegistredException;
 import br.com.stand.artilharia.model.Credenciais;
 import br.com.stand.artilharia.repository.CredenciaisRepository;

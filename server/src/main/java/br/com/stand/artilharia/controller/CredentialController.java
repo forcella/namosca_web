@@ -1,6 +1,5 @@
 package br.com.stand.artilharia.controller;
 
-import br.com.stand.artilharia.dto.CredentialRegisterDTO;
 import br.com.stand.artilharia.model.Credenciais;
 import br.com.stand.artilharia.service.CredenciaisService;
 import java.net.URI;

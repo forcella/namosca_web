@@ -1,6 +1,5 @@
 package br.com.stand.artilharia.model;
 
-import br.com.stand.artilharia.dto.ArmaLocadaDto;
 import java.io.Serializable;
 
 import javax.persistence.Entity;

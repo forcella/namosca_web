@@ -20,7 +20,7 @@ api.interceptors
   }, async error => {
     const { response } = await error
     console.log(error.response)
-    if (response.status === 401 || response.status === 403) { logout() }
+    if (!response || response.status === 401 || response.status === 403) { logout() }
     return Promise.reject(response)
   })
 

@@ -1,13 +1,9 @@
 package br.com.stand.artilharia.model;
 
-import br.com.stand.artilharia.dto.ArmaLocadaDto;
-import br.com.stand.artilharia.dto.ReservaDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -44,14 +40,4 @@ public class Reserva implements Serializable {
   private Set<ArmaLocada> armaLocadas;
   @Column(columnDefinition = "boolean default true")
   private Boolean ativa;
-
-  public ReservaDTO converter() {
-    return ReservaDTO.builder().clienteSelecionado(cliente.getId()).ambienteSelecionado(ambiente.getId())
-        .armasLocadas(converterArmasLocadas(armaLocadas)).ativa(ativa).inicioDaLocacao(inicioDaLocacao)
-        .fimDaLocacao(fimDaLocacao).build();
-  }
-
-  private Set<ArmaLocadaDto> converterArmasLocadas(Set<ArmaLocada> armalocadas) {
-    return armalocadas.stream().map(ArmaLocada::converterParaDto).collect(Collectors.toSet());
-  }
 }
