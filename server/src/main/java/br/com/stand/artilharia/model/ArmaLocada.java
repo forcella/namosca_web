@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -21,7 +22,7 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = { "id" })
+@EqualsAndHashCode(of = { "id","arma" })
 public class ArmaLocada implements Serializable {
   private static final long serialVersionUID = -1480985512327327668L;
 
@@ -31,11 +32,9 @@ public class ArmaLocada implements Serializable {
 
   private int quantidade;
   @ManyToOne
+  @JsonIgnore
   private Reserva reserva;
   @ManyToOne
   private Arma arma;
 
-  public static ArmaLocadaDto converterParaDto(ArmaLocada armaLocada) {
-    return ArmaLocadaDto.builder().id(armaLocada.arma.getId()).quantidade(armaLocada.quantidade).build();
-  }
 }

@@ -23,6 +23,7 @@ public class ReservaService {
 
   private ArmaLocadaService armaLocadaService;
 
+  @Transactional
   public Reserva salvar(Reserva reserva, Long id) {
     Cliente cliente = clienteService.findOne(reserva.getCliente().getId());
     Ambiente ambiente = ambienteService.findOne(reserva.getAmbiente().getId());

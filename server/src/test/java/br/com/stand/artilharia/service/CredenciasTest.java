@@ -16,7 +16,7 @@ public class CredenciasTest extends AbstractIntegrationTests {
     @Test
     @Sql({"/dataset/truncate.sql"})
     public void deveRegistrarCredencial() {
-        Credenciais credenciais = credenciaisService.register(CredentialRegisterDTO.builder().email("email@email.com").password("123").build());
+        Credenciais credenciais = credenciaisService.register(Credenciais.builder().email("email@email.com").password("123").build());
         assertNotNull(credenciais);
     }
 

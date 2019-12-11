@@ -1,7 +1,7 @@
 package br.com.stand.artilharia.service;
 
 import br.com.stand.artilharia.AbstractIntegrationTests;
-import br.com.stand.artilharia.model.Reserva;
+import br.com.stand.artilharia.model.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,7 +25,7 @@ public class ReservaTest extends AbstractIntegrationTests {
     @Test
     @Sql({"/dataset/truncate.sql", "/dataset/clientes.sql", "/dataset/armas.sql", "/dataset/ambientes.sql", "/dataset/reservas.sql"})
     public void deveBuscarTodasAsReservas() {
-        Page<ReservaListarDTO> reservas = reservaService.buscarTodos("", PageRequest.of(0, 100));
+        Page<Reserva> reservas = reservaService.buscarTodos("", PageRequest.of(0, 100));
         assertThat(reservas.getContent(), hasSize(1));
     }
 
@@ -34,26 +34,26 @@ public class ReservaTest extends AbstractIntegrationTests {
     @Transactional
     @Sql({"/dataset/truncate.sql", "/dataset/clientes.sql", "/dataset/armas.sql", "/dataset/ambientes.sql", "/dataset/reservas.sql"})
     public void deveBuscarUmaReserva() {
-        ReservaDTO reserva = reservaService.buscarReservaPorId(1001L);
+        Reserva reserva = reservaService.buscarReservaPorId(1001L);
         assertNotNull(reserva);
     }
 
     @Test
     @Sql({"/dataset/truncate.sql", "/dataset/clientes.sql", "/dataset/armas.sql", "/dataset/ambientes.sql", "/dataset/reservas.sql"})
     public void deveSalvarUmaReserva() {
-     ReservaDTO reserva = ReservaDTO.builder()
-             .ambienteSelecionado(1001L)
-             .clienteSelecionado(1001L)
-             .inicioDaLocacao(LocalDateTime.now())
-             .fimDaLocacao(LocalDateTime.now())
-             .armasLocadas(Collections.singleton(ArmaLocadaDto.builder()
-                     .id(1001L)
-                     .quantidade(1)
-                     .build()))
-             .ativa(true)
-             .build();
+        Reserva reserva = Reserva.builder()
+                .ambiente(Ambiente.builder().id(1001L).build())
+                .cliente(Cliente.builder().id(1001L).build())
+                .inicioDaLocacao(LocalDateTime.now())
+                .fimDaLocacao(LocalDateTime.now())
+                .armaLocadas(Collections.singleton(ArmaLocada.builder()
+                        .arma(Arma.builder().id(1001L).build())
+                        .quantidade(1)
+                        .build()))
+                .ativa(true)
+                .build();
 
-        Reserva reservaSalva = reservaService.salvar(reserva,null);
+        Reserva reservaSalva = reservaService.salvar(reserva, null);
         assertNotNull(reservaSalva);
 
     }
@@ -62,21 +62,21 @@ public class ReservaTest extends AbstractIntegrationTests {
     @Test
     @Sql({"/dataset/truncate.sql", "/dataset/clientes.sql", "/dataset/armas.sql", "/dataset/ambientes.sql", "/dataset/reservas.sql"})
     public void deveAtualizarReserva() {
-        ReservaDTO reserva = ReservaDTO.builder()
-                .ambienteSelecionado(1001L)
-                .clienteSelecionado(1001L)
+        Reserva reserva = Reserva.builder()
+                .ambiente(Ambiente.builder().id(1001L).build())
+                .cliente(Cliente.builder().id(1001L).build())
                 .inicioDaLocacao(LocalDateTime.now())
                 .fimDaLocacao(LocalDateTime.now())
-                .armasLocadas(Collections.singleton(ArmaLocadaDto.builder()
-                        .id(1001L)
+                .armaLocadas(Collections.singleton(ArmaLocada.builder()
+                        .arma(Arma.builder().id(1001L).build())
                         .quantidade(2)
                         .build()))
                 .ativa(true)
                 .build();
 
-        Reserva reservaSalva = reservaService.salvar(reserva,1001L);
+        Reserva reservaSalva = reservaService.salvar(reserva, 1001L);
         assertNotNull(reservaSalva);
-        assertThat(reservaSalva.getId(),equalTo(1001L));
+        assertThat(reservaSalva.getArmaLocadas().stream().findFirst().orElse(new ArmaLocada()).getQuantidade(), equalTo(2));
 
     }
 }

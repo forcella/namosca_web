@@ -16,5 +16,5 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
 
   @Modifying
   @Query("UPDATE Reserva  SET ativa = false WHERE id =?1 ")
-  Reserva inativar(Long id);
+  void inativar(Long id);
 }

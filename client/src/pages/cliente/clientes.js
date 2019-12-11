@@ -53,7 +53,7 @@ const mostarDadosNaTabela = (clientes) => {
   return (
     clientes && clientes.map(cliente =>
       <tr key={cliente.id}>
-        <td>{cliente.nomeCompleto}</td>
+        <td>{cliente.primeiroNome + ' ' + cliente.ultimoNome}</td>
         <td>{cliente.cpf}</td>
         <td>{cliente.rg}</td>
         <td>{cliente.telefone}</td>

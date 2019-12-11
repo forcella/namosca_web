@@ -18,10 +18,10 @@ public class CredenciaisService {
   private CredenciaisRepository repository;
   private PasswordEncoder passwordEncoder;
 
-  public Credenciais register(CredentialRegisterDTO dto) {
-    dto.setPassword(passwordEncoder.encode(dto.getPassword()));
+  public Credenciais register(Credenciais credenciais) {
+    credenciais.setPassword(passwordEncoder.encode(credenciais.getPassword()));
     try {
-      return repository.save(dto.toCredential());
+      return repository.save(credenciais);
     } catch (DataIntegrityViolationException e) {
       log.info(e.getCause());
       throw new AlreadyRegistredException("Email já cadastrado", "Se esta conta te pertencer, tente recuperar",

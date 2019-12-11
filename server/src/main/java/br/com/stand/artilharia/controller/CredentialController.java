@@ -18,9 +18,9 @@ public class CredentialController {
   private CredenciaisService service;
 
   @PostMapping("api/registrar")
-  public ResponseEntity<Object> register(@RequestBody CredentialRegisterDTO dto) {
-    Credenciais credenciais = service.register(dto);
-    URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(credenciais.getId())
+  public ResponseEntity<Object> register(@RequestBody Credenciais credenciais) {
+    Credenciais salvo = service.register(credenciais);
+    URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(salvo.getId())
         .toUri();
     return ResponseEntity.created(location).build();
   }

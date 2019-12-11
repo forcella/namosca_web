@@ -48,7 +48,7 @@ class Reservas extends Component {
             </tr>
           </thead>
           <tbody>
-            {mostarDadosNaTabela(reservas, this.handleInativar)}
+            {reservas && mostarDadosNaTabela(reservas, this.handleInativar)}
           </tbody>
         </table>
         <Link to='reservas/cadastrar' className='btn btn-secondary float-right'> Nova Reserva </Link>
@@ -58,20 +58,24 @@ class Reservas extends Component {
 }
 
 const mostarDadosNaTabela = (reservas, handleInativar) => {
+  console.log(reservas)
   return (
     reservas && reservas.map(reserva =>
       <tr key={reserva.id} className={`${reserva.ativa ? 'reserva-ativa' : 'reserva-inativa'}`}>
-        <td>{reserva.cliente}</td>
-        <td>{reserva.qtdArmas}</td>
-        <td>{formatarDataHora(reserva.inicio)}</td>
-        <td>{formatarDataHora(reserva.fim)}</td>
+        <td>{reserva.cliente.resumo}</td>
+        <td>
+          {reserva.armaLocadas.map(arma => arma.quantidade).reduce((acc, val) => acc + val)}
+        </td>
+        <td>{reserva.ambiente.resumo}</td>
+        <td>{formatarDataHora(reserva.inicioDaLocacao)}</td>
+        <td>{formatarDataHora(reserva.fimDaLocacao)}</td>
         <td align='center'>
 
           <Link to={`/app/reservas/${reserva.id}`}>
             <i className='fa  fas fa-edit' style={{ fontSize: 40, marginRight: 10 }} title='Editar Arma' />
           </Link>
 
-          <Link style={{ visibility: !reserva.ativa ? 'hidden' : '' }}>
+          <Link style={{ visibility: !reserva.ativa ? 'hidden' : '' }} to=''>
             <i className='fa  fas fa-ban' style={{ fontSize: 40 }} title='Desmarcar' onClick={() => handleInativar(reserva.id)} />
           </Link>
 

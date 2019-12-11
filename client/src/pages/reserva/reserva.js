@@ -34,14 +34,38 @@ class Reserva extends Component {
       const url = `/api/reservas/${this.getId()}`
       const response = await api.get(url)
       const { data } = response
-
-      this.setState({ ...data })
-      data.armasLocadas.forEach(arma => {
-        this.setState({ armaSelecionada: arma.id, quantidade: arma.quantidade }, this.handleAdicionaArma)
+      const armasNaReserva = data.armaLocadas.map(al => ({ ...al.arma, quantidade: al.quantidade }))
+      console.log(data.armaLocadas)
+      console.log(armasNaReserva)
+      this.setState({
+        clienteSelecionado: data.cliente.id,
+        ambienteSelecionado: data.ambiente.id,
+        inicioDaLocacao: data.inicioDaLocacao,
+        fimDaLocacao: data.fimDaLocacao,
+        armasNaReserva
       })
     } catch (err) {
-      this.setState({ erro: err.data.message })
+      console.log(err)
+      // this.setState({ erro: err.data.message })
     }
+  }
+
+  converterClienteParaObjeto=({ clienteSelecionado, ambienteSelecionado, inicioDaLocacao, fimDaLocacao, armasNaReserva, ativa }) => {
+    const armaLocadas = armasNaReserva.map(arma => {
+      return ({
+        arma: { id: arma.id },
+        quantidade: arma.quantidade
+      })
+    })
+    return ({
+      cliente: { id: clienteSelecionado },
+      ambiente: { id: ambienteSelecionado },
+      inicioDaLocacao,
+      fimDaLocacao,
+      ativa,
+      armaLocadas
+
+    })
   }
 
   listarArmas = async () => {
@@ -97,10 +121,8 @@ class Reserva extends Component {
   getId = () => this.props.match.params.id
 
   handleCadastrar= async () => {
-    const { clienteSelecionado, ambienteSelecionado, inicioDaLocacao, fimDaLocacao, armasNaReserva, ativa } = this.state
-    const armasLocadas = armasNaReserva.map(arma => ({ id: arma.id, quantidade: arma.quantidade }))
     try {
-      await api.post('/api/reservas', { clienteSelecionado, ambienteSelecionado, inicioDaLocacao, fimDaLocacao, armasLocadas, ativa })
+      await api.post('/api/reservas', this.converterClienteParaObjeto(this.state))
       this.props.history.goBack()
     } catch (err) {
       this.setState({ erro: err.data.message })
@@ -108,10 +130,8 @@ class Reserva extends Component {
   }
 
     handleEditar= async () => {
-      const { clienteSelecionado, ambienteSelecionado, inicioDaLocacao, fimDaLocacao, armasNaReserva, ativa } = this.state
-      const armasLocadas = armasNaReserva.map(arma => ({ id: arma.id, quantidade: arma.quantidade }))
       try {
-        await api.put(`/api/reservas/${this.getId()}`, { clienteSelecionado, ambienteSelecionado, inicioDaLocacao, fimDaLocacao, armasLocadas, ativa })
+        await api.put(`/api/reservas/${this.getId()}`, this.converterClienteParaObjeto(this.state))
         this.props.history.goBack()
       } catch (err) {
         console.log(err)
@@ -124,7 +144,6 @@ class Reserva extends Component {
         armaSelecionada, armasNaReserva, listaArmas, quantidade, ambienteSelecionado,
         listaAmbientes, clienteSelecionado, listaClientes, inicioDaLocacao, fimDaLocacao, erro
       } = this.state
-
       const propiedades = {
         erro,
         handleEditar: this.handleEditar,
@@ -132,7 +151,6 @@ class Reserva extends Component {
         editando: this.editando(),
         history: this.props.history
       }
-      console.log(this.editando())
       return (
         <PaginaCadastro {...propiedades}>
           <form>

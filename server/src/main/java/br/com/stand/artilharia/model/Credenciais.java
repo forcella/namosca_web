@@ -2,12 +2,7 @@ package br.com.stand.artilharia.model;
 
 import java.util.Collections;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -61,6 +56,13 @@ public class Credenciais implements UserDetails {
   @Override
   public boolean isEnabled() {
     return enabled;
+  }
+
+  @PrePersist
+  private void prePersist(){
+    if(this.enabled == null){
+      this.enabled = true;
+    }
   }
 
   @Override
