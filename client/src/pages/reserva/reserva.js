@@ -252,4 +252,4 @@ const ArmasNaReserva = ({ armas, remover }) => {
   )
 }
 
-export default Reserva
+export default withRouter(Reserva)
